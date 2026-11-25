@@ -1,0 +1,14 @@
+{
+  "name": "Nine Men's Morris — Neon Edition",
+  "short_name": "Neon Morris",
+  "description": "A neon-powered Nine Men's Morris game with Persian calligraphy.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#070812",
+  "theme_color": "#070812",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
