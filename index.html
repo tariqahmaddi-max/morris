@@ -7,7 +7,7 @@
   <title>Nine Men's Morris — Neon Edition</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa+Ink:wght@400;700&family=Orbitron:wght@500;600;700;800&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{color-scheme:dark;--bg:#090b18;--panel:#111429;--text:#f4f4ff;--muted:#a3a8c5;--cyan:#4df6ff;--pink:#ff4fd8;--violet:#9d6bff;--line:rgba(132,157,255,.62)}
     *{box-sizing:border-box}
@@ -17,12 +17,13 @@
     header{text-align:center;margin:8px 0 25px}
     .eyebrow{font:600 10px Orbitron,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:var(--cyan);text-shadow:0 0 12px #4df6ff88}
     h1{font:800 clamp(27px,5vw,47px) Orbitron,sans-serif;letter-spacing:.055em;margin:12px 0 3px;text-shadow:0 0 25px #9d6bff65}
-    .persian{font:600 clamp(21px,4vw,30px) Vazirmatn,sans-serif;color:#d7c6ff;direction:rtl;margin:6px 0 0;text-shadow:0 0 16px #a976ff96}
+    .persian{font:700 clamp(27px,5vw,39px) 'Aref Ruqaa Ink','Vazirmatn',serif;color:#f1ddff;direction:rtl;margin:7px 0 0;text-shadow:0 0 8px #c58bff,0 0 22px #a976ff96,0 0 42px #ff4fd84c}
+    .dedication{font:700 clamp(22px,4vw,31px) 'Aref Ruqaa Ink','Vazirmatn',serif;direction:rtl;color:#ffe4a9;margin:6px 0 0;text-shadow:0 0 8px #ffcb62,0 0 23px #ff9e4d7a}
     .subtitle{margin:10px 0 0;color:var(--muted);font-size:14px}
     .layout{display:grid;grid-template-columns:minmax(0,1fr) 275px;gap:22px;align-items:stretch}
     .board-card,.side-card{background:linear-gradient(145deg,#15182eeb,#0c1020f2);border:1px solid #9a8dff30;border-radius:22px;box-shadow:0 20px 70px #0008,inset 0 1px #ffffff0a;backdrop-filter:blur(12px)}
     .board-card{padding:clamp(12px,3vw,26px);display:flex;align-items:center;justify-content:center;min-width:0}
-    .board-shell{width:min(100%,650px);aspect-ratio:1;border-radius:18px;padding:8px;background:linear-gradient(135deg,#4df6ff,#9d6bff,#ff4fd8,#4df6ff);background-size:300% 300%;animation:rgb 8s linear infinite;box-shadow:0 0 16px #4df6ff66,0 0 42px #9d6bff48,0 0 75px #ff4fd82b}
+    .board-shell{width:min(100%,650px);aspect-ratio:1;border-radius:18px;padding:8px;background:linear-gradient(135deg,#4df6ff,#9d6bff,#ff4fd8,#4df6ff);background-size:300% 300%;animation:rgb 8s linear infinite,rgbGlow 4s ease-in-out infinite;box-shadow:0 0 16px #4df6ff66,0 0 42px #9d6bff48,0 0 75px #ff4fd82b}
     .board-inner{height:100%;width:100%;border-radius:13px;background:radial-gradient(circle at 50% 50%,#1d2240,#0c1020 72%);overflow:hidden}
     svg{display:block;width:100%;height:100%;filter:drop-shadow(0 0 9px #706dff20)}
     .board-line{stroke:var(--line);stroke-width:2.2;vector-effect:non-scaling-stroke}
@@ -44,6 +45,12 @@
     .score{flex:1;padding:13px 10px;border-radius:13px;background:#ffffff08;border:1px solid #ffffff0c;text-align:center}
     .score strong{display:block;font:700 25px Orbitron,sans-serif;margin:7px 0 2px}.score span{font-size:11px;color:var(--muted)}
     .blue-text{color:#55eaff}.pink-text{color:#ff72d4}
+    .odds{margin-top:16px;padding:13px;border-radius:13px;background:linear-gradient(120deg,#35dcff0c,#ff4fc90c);border:1px solid #ffffff12}
+    .odds-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;font:600 10px Orbitron,sans-serif;letter-spacing:.09em;text-transform:uppercase}
+    .odds-values{display:flex;justify-content:space-between;margin:11px 0 8px;font:700 12px Orbitron,sans-serif}
+    .odds-track{height:9px;border-radius:99px;background:#ff4fc9;overflow:hidden;box-shadow:0 0 12px #ff4fc944}
+    .odds-blue{height:100%;width:50%;border-radius:99px;background:linear-gradient(90deg,#35dcff,#8cfaff);box-shadow:0 0 12px #35dcff;transition:width .45s ease}
+    .odds-note{font-size:10px;line-height:1.45;color:var(--muted);margin:9px 0 0}
     .controls{display:flex;gap:9px;margin-top:17px}
     button{font:600 12px Orbitron,sans-serif;letter-spacing:.04em;color:var(--text);background:#ffffff0b;border:1px solid #ffffff20;border-radius:11px;padding:11px 13px;cursor:pointer;transition:.2s}
     button:hover{border-color:var(--cyan);box-shadow:0 0 14px #4df6ff2b;transform:translateY(-1px)}
@@ -52,6 +59,7 @@
     .mode-pill{display:inline-block;margin-top:13px;border:1px solid #4df6ff47;color:#93faff;background:#4df6ff0c;border-radius:99px;padding:6px 10px;font:600 9px Orbitron,sans-serif;letter-spacing:.08em}
     footer{text-align:center;color:#747b9e;font-size:11px;margin:18px 0 0}
     @keyframes rgb{0%{background-position:0 50%;filter:hue-rotate(0)}50%{background-position:100% 50%;filter:hue-rotate(40deg)}100%{background-position:0 50%;filter:hue-rotate(0)}}
+    @keyframes rgbGlow{0%,100%{box-shadow:0 0 16px #4df6ff70,0 0 38px #9d6bff4d,0 0 65px #ff4fd82e}50%{box-shadow:0 0 24px #ff4fd880,0 0 52px #4df6ff66,0 0 82px #9d6bff4d}}
     @keyframes pulse{to{stroke-width:5;opacity:.65}}
     @media(max-width:760px){.wrap{padding:22px 13px 32px}.layout{grid-template-columns:1fr}.side{display:grid;grid-template-columns:1fr 1fr}.status-card{grid-column:1/-1}.board-card{padding:12px}.side-card{padding:16px}}
     @media(max-width:440px){.side{grid-template-columns:1fr}.status-card{grid-column:auto}.board-card{padding:8px}.wrap{padding-left:9px;padding-right:9px}.rules{font-size:11px}}
@@ -64,6 +72,7 @@
       <div class="eyebrow">A classic, reimagined</div>
       <h1>NINE MEN'S MORRIS</h1>
       <p class="persian" lang="fa" dir="rtl">دوزِ نه‌مرد</p>
+      <p class="dedication" lang="fa" dir="rtl">این بازی برای لالای عزیز تی بزرگ ساخته شده</p>
       <p class="subtitle">Build your mills. Move without limits. Own the board.</p>
     </header>
     <section class="layout" aria-label="Nine Men's Morris game">
@@ -81,6 +90,12 @@
           <div class="score-row">
             <div class="score"><span class="blue-text">BLUE</span><strong id="blue-count" class="blue-text">9</strong><span>to place / on board</span></div>
             <div class="score"><span class="pink-text">PINK</span><strong id="pink-count" class="pink-text">9</strong><span>to place / on board</span></div>
+          </div>
+          <div class="odds" aria-live="polite" aria-label="Estimated winning chances">
+            <div class="odds-heading"><span>Winning chances</span><span>EST.</span></div>
+            <div class="odds-values"><span id="blue-odds" class="blue-text">50% BLUE</span><span id="pink-odds" class="pink-text">50% PINK</span></div>
+            <div class="odds-track" role="img" aria-label="Estimated chance bar"><div id="odds-blue-bar" class="odds-blue"></div></div>
+            <p class="odds-note">A playful estimate from pieces, mills, and threats—not a prediction or rule change.</p>
           </div>
           <div class="controls"><button class="primary" id="restart">↻ &nbsp;NEW GAME</button><button id="sound" aria-pressed="false" title="Toggle sound effects">♫</button></div>
         </section>
@@ -105,6 +120,8 @@
   const turnDot = document.getElementById('turn-dot');
   const turnName = document.getElementById('turn-name');
   const countEls = {blue: document.getElementById('blue-count'), pink: document.getElementById('pink-count')};
+  const oddsEls = {blue: document.getElementById('blue-odds'), pink: document.getElementById('pink-odds')};
+  const oddsBlueBar = document.getElementById('odds-blue-bar');
   const colors = ['blue', 'pink'];
   const points = [
     [30,30],[150,30],[270,30],[270,150],[270,270],[150,270],[30,270],[30,150],
@@ -130,6 +147,15 @@
   }
   function isMill(index, color) { return mills.some(m => m.includes(index) && m.every(i => board[i]===color)); }
   function pieceCount(color) { return board.filter(p=>p===color).length; }
+  function other(color){return color==='blue'?'pink':'blue'}
+  function estimateWinChance(color) {
+    const opponent=other(color);
+    const completedMills=c=>mills.filter(m=>m.every(i=>board[i]===c)).length;
+    const openThreats=c=>mills.filter(m=>m.filter(i=>board[i]===c).length===2&&m.some(i=>board[i]===null)).length;
+    const value=c=>pieceCount(c)*1.25+completedMills(c)*2.4+openThreats(c)*.42+(turn===c?.35:0);
+    const advantage=value(color)-value(opponent);
+    return Math.max(5,Math.min(95,Math.round(100/(1+Math.exp(-advantage/2.8)))));
+  }
   function onPoint(i) {
     if(winner) return;
     if(captureFor) {
@@ -150,7 +176,6 @@
     if(isMill(i,turn)) captureFor=other(turn); else turn=other(turn);
     render();
   }
-  function other(color){return color==='blue'?'pink':'blue'}
   function render(){
     const allPlaced=placed.blue===9&&placed.pink===9;
     document.querySelectorAll('.node').forEach((group,i)=>{
@@ -162,6 +187,11 @@
       const label=board[i]?`${board[i]} pawn at point ${i+1}`:`Empty point ${i+1}`;group.setAttribute('aria-label',label);
     });
     colors.forEach(c=>{countEls[c].textContent=String(9-placed[c]+pieceCount(c))});
+    const blueChance=winner?(winner==='blue'?100:0):estimateWinChance('blue');
+    const pinkChance=100-blueChance;
+    oddsEls.blue.textContent=`${blueChance}% BLUE`; oddsEls.pink.textContent=`${pinkChance}% PINK`;
+    oddsBlueBar.style.width=`${blueChance}%`;
+    oddsBlueBar.parentElement.setAttribute('aria-label',`Estimated chances: Blue ${blueChance} percent, Pink ${pinkChance} percent`);
     turnDot.className=`dot ${turn}`; turnName.textContent=`${turn.toUpperCase()} PLAYER`;
     if(winner){statusEl.textContent=`${winner.toUpperCase()} WINS!`;hintEl.textContent='A brilliant game. Start a new game to play again.';turnName.textContent='GAME OVER';return}
     if(captureFor){statusEl.textContent='Mill made! Capture a pawn';hintEl.textContent=`Choose any glowing ${captureFor} pawn to remove it.`;turnName.textContent=`${turn.toUpperCase()} PLAYER`;return}
