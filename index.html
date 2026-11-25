@@ -3,66 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#090b18">
+  <meta name="theme-color" content="#070812">
+  <meta name="description" content="A neon-powered Nine Men's Morris game with Persian calligraphy.">
   <title>Nine Men's Morris — Neon Edition</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa+Ink:wght@400;700&family=Orbitron:wght@500;600;700;800&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root{color-scheme:dark;--bg:#090b18;--panel:#111429;--text:#f4f4ff;--muted:#a3a8c5;--cyan:#4df6ff;--pink:#ff4fd8;--violet:#9d6bff;--line:rgba(132,157,255,.62)}
+    :root{color-scheme:dark;--bg:#070812;--text:#f4f4ff;--muted:#a3a8c5;--cyan:#4df6ff;--pink:#ff4fd8;--violet:#9d6bff;--lime:#c8ff4d;--line:rgba(132,157,255,.62)}
     *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -20%,#292251 0,transparent 52%),radial-gradient(ellipse at 100% 80%,#102b3c 0,transparent 38%),var(--bg);color:var(--text);font-family:Arial,sans-serif;overflow-x:hidden}
+    body{margin:0;min-height:100vh;overflow-x:hidden;background:radial-gradient(ellipse at 50% -20%,#292251 0,transparent 52%),radial-gradient(ellipse at 100% 80%,#102b3c 0,transparent 38%),var(--bg);color:var(--text);font-family:Arial,sans-serif}
     body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,#000,transparent 85%)}
-    .wrap{width:min(1080px,100%);margin:0 auto;padding:32px 20px 46px;position:relative}
-    header{text-align:center;margin:8px 0 25px}
+    body:after{content:"";position:fixed;width:50vw;height:50vw;max-width:620px;max-height:620px;left:50%;top:46%;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;background:conic-gradient(from 0deg,transparent 0 25%,#4df6ff15 35%,transparent 45% 60%,#ff4fd815 72%,transparent 84%);filter:blur(75px);animation:aurora 18s linear infinite;z-index:-1}
+    .wrap{width:min(1120px,100%);margin:0 auto;padding:32px 20px 46px;position:relative}
+    header{text-align:center;margin:8px 0 25px;animation:fade-up .8s both}
     .eyebrow{font:600 10px Orbitron,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:var(--cyan);text-shadow:0 0 12px #4df6ff88}
     h1{font:800 clamp(27px,5vw,47px) Orbitron,sans-serif;letter-spacing:.055em;margin:12px 0 3px;text-shadow:0 0 25px #9d6bff65}
-    .persian{font:700 clamp(27px,5vw,39px) 'Aref Ruqaa Ink','Vazirmatn',serif;color:#f1ddff;direction:rtl;margin:7px 0 0;text-shadow:0 0 8px #c58bff,0 0 22px #a976ff96,0 0 42px #ff4fd84c}
-    .dedication{font:700 clamp(22px,4vw,31px) 'Aref Ruqaa Ink','Vazirmatn',serif;direction:rtl;color:#ffe4a9;margin:6px 0 0;text-shadow:0 0 8px #ffcb62,0 0 23px #ff9e4d7a}
+    .persian{font:700 clamp(29px,5.4vw,43px) 'Aref Ruqaa Ink','Vazirmatn',serif;direction:rtl;margin:7px 0 0;background:linear-gradient(90deg,#4df6ff,#e9e4ff 35%,#ff4fd8 68%,#c8ff4d);background-size:250% auto;background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 7px #c58bff) drop-shadow(0 0 18px #ff4fd866);animation:neon-flow 6s linear infinite,neon-flicker 5s ease-in-out infinite}
+    .dedication{font:700 clamp(22px,4vw,31px) 'Aref Ruqaa Ink','Vazirmatn',serif;direction:rtl;color:#fff0bd;margin:7px 0 0;text-shadow:0 0 7px #ffcb62,0 0 19px #ff9e4d,0 0 34px #ff4fd866;animation:gold-pulse 3s ease-in-out infinite}
     .subtitle{margin:10px 0 0;color:var(--muted);font-size:14px}
-    .layout{display:grid;grid-template-columns:minmax(0,1fr) 275px;gap:22px;align-items:stretch}
-    .board-card,.side-card{background:linear-gradient(145deg,#15182eeb,#0c1020f2);border:1px solid #9a8dff30;border-radius:22px;box-shadow:0 20px 70px #0008,inset 0 1px #ffffff0a;backdrop-filter:blur(12px)}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) 275px;gap:22px;align-items:start}
+    .board-column{min-width:0}
+    .board-card,.side-card,.odds-card{background:linear-gradient(145deg,#15182eeb,#0c1020f2);border:1px solid #9a8dff30;border-radius:22px;box-shadow:0 20px 70px #0008,inset 0 1px #ffffff0a;backdrop-filter:blur(12px)}
     .board-card{padding:clamp(12px,3vw,26px);display:flex;align-items:center;justify-content:center;min-width:0}
-    .board-shell{width:min(100%,650px);aspect-ratio:1;border-radius:18px;padding:8px;background:linear-gradient(135deg,#4df6ff,#9d6bff,#ff4fd8,#4df6ff);background-size:300% 300%;animation:rgb 8s linear infinite,rgbGlow 4s ease-in-out infinite;box-shadow:0 0 16px #4df6ff66,0 0 42px #9d6bff48,0 0 75px #ff4fd82b}
+    .board-shell{width:min(100%,650px);aspect-ratio:1;border-radius:18px;padding:8px;background:linear-gradient(135deg,#4df6ff,#9d6bff,#ff4fd8,#c8ff4d,#4df6ff);background-size:350% 350%;animation:rgb 7s linear infinite,rgb-glow 3.6s ease-in-out infinite;box-shadow:0 0 20px #4df6ff66,0 0 48px #9d6bff48,0 0 80px #ff4fd82b;position:relative}
+    .board-shell:before{content:"";position:absolute;inset:-3px;border-radius:21px;background:inherit;background-size:350% 350%;filter:blur(15px);opacity:.5;z-index:-1;animation:rgb 7s linear infinite}
     .board-inner{height:100%;width:100%;border-radius:13px;background:radial-gradient(circle at 50% 50%,#1d2240,#0c1020 72%);overflow:hidden}
     svg{display:block;width:100%;height:100%;filter:drop-shadow(0 0 9px #706dff20)}
     .board-line{stroke:var(--line);stroke-width:2.2;vector-effect:non-scaling-stroke}
     .node{cursor:pointer;outline:none}
-    .node-ring{fill:#151a32;stroke:#b9b8ff;stroke-width:2.5;vector-effect:non-scaling-stroke;transition:.18s}
-    .node:hover .node-ring,.node:focus .node-ring{stroke:var(--cyan);stroke-width:4;filter:drop-shadow(0 0 8px var(--cyan))}
-    .node.selected .node-ring{stroke:#fff;stroke-width:4;filter:drop-shadow(0 0 10px #fff)}
-    .piece{stroke:#fff9;stroke-width:1.6;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 7px currentColor)}
+    .node-ring{fill:#151a32;stroke:#b9b8ff;stroke-width:2.5;vector-effect:non-scaling-stroke;transition:stroke .2s,filter .2s,transform .2s}
+    .node:hover .node-ring,.node:focus .node-ring{stroke:var(--cyan);stroke-width:4;filter:drop-shadow(0 0 8px var(--cyan));transform:scale(1.16)}
+    .node.selected .node-ring{stroke:#fff;stroke-width:4;filter:drop-shadow(0 0 10px #fff);animation:node-pulse 1s ease-in-out infinite alternate}
+    .piece{stroke:#fff9;stroke-width:1.6;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 7px currentColor);transform-box:fill-box;transform-origin:center;animation:piece-pop .32s cubic-bezier(.2,1.7,.45,1) both}
     .piece.blue{fill:#35dcff;color:#35dcff}.piece.pink{fill:#ff4fc9;color:#ff4fc9}
     .node.capture-target .node-ring{stroke:#ff6262;filter:drop-shadow(0 0 9px #ff6262);animation:pulse .8s infinite alternate}
+    .odds-card{margin-top:17px;padding:18px 20px;position:relative;overflow:hidden;animation:fade-up .7s .12s both}
+    .odds-card:before{content:"";position:absolute;inset:0 0 auto;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),var(--pink),var(--lime),transparent);background-size:200% 100%;animation:rgb 5s linear infinite}
+    .odds-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;font:600 11px Orbitron,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+    .odds-heading span:last-child{font-size:9px;color:var(--muted)}
+    .odds-values{display:flex;justify-content:space-between;gap:10px;margin:12px 0 9px;font:700 clamp(11px,2vw,14px) Orbitron,sans-serif}
+    .blue-text{color:#55eaff;text-shadow:0 0 12px #35dcff55}.pink-text{color:#ff72d4;text-shadow:0 0 12px #ff4fc955}
+    .odds-track{height:11px;border-radius:99px;background:#ff4fc9;overflow:hidden;box-shadow:0 0 14px #ff4fc944}
+    .odds-blue{height:100%;width:50%;border-radius:99px;background:linear-gradient(90deg,#35dcff,#8cfaff);box-shadow:0 0 14px #35dcff;transition:width .55s cubic-bezier(.2,.8,.2,1);position:relative}
+    .odds-blue:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 20%,#ffffffaa 50%,transparent 80%);transform:translateX(-100%);animation:shine 3s ease-in-out infinite}
+    .odds-note{font-size:11px;line-height:1.5;color:var(--muted);margin:10px 0 0}
     .side{display:flex;flex-direction:column;gap:14px}
-    .side-card{padding:20px}
+    .side-card{padding:20px;animation:fade-up .7s both}
+    .side-card:nth-child(2){animation-delay:.1s}.side-card:nth-child(3){animation-delay:.2s}
     .status-label,.section-label{font:600 10px Orbitron,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
     #status{font-size:17px;font-weight:700;line-height:1.45;margin:10px 0 6px}
     #hint{font-size:13px;line-height:1.5;color:var(--muted);margin:0}
     .turn-indicator{display:flex;align-items:center;gap:10px;margin-top:16px;font-size:13px;font-weight:700}
-    .dot{width:12px;height:12px;border-radius:50%;box-shadow:0 0 12px currentColor}.dot.blue{background:#35dcff;color:#35dcff}.dot.pink{background:#ff4fc9;color:#ff4fc9}
+    .dot{width:12px;height:12px;border-radius:50%;box-shadow:0 0 12px currentColor;animation:node-pulse 1.4s ease-in-out infinite alternate}.dot.blue{background:#35dcff;color:#35dcff}.dot.pink{background:#ff4fc9;color:#ff4fc9}
     .score-row{display:flex;justify-content:space-between;gap:10px;margin-top:15px}
     .score{flex:1;padding:13px 10px;border-radius:13px;background:#ffffff08;border:1px solid #ffffff0c;text-align:center}
     .score strong{display:block;font:700 25px Orbitron,sans-serif;margin:7px 0 2px}.score span{font-size:11px;color:var(--muted)}
-    .blue-text{color:#55eaff}.pink-text{color:#ff72d4}
-    .odds{margin-top:16px;padding:13px;border-radius:13px;background:linear-gradient(120deg,#35dcff0c,#ff4fc90c);border:1px solid #ffffff12}
-    .odds-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;font:600 10px Orbitron,sans-serif;letter-spacing:.09em;text-transform:uppercase}
-    .odds-values{display:flex;justify-content:space-between;margin:11px 0 8px;font:700 12px Orbitron,sans-serif}
-    .odds-track{height:9px;border-radius:99px;background:#ff4fc9;overflow:hidden;box-shadow:0 0 12px #ff4fc944}
-    .odds-blue{height:100%;width:50%;border-radius:99px;background:linear-gradient(90deg,#35dcff,#8cfaff);box-shadow:0 0 12px #35dcff;transition:width .45s ease}
-    .odds-note{font-size:10px;line-height:1.45;color:var(--muted);margin:9px 0 0}
     .controls{display:flex;gap:9px;margin-top:17px}
     button{font:600 12px Orbitron,sans-serif;letter-spacing:.04em;color:var(--text);background:#ffffff0b;border:1px solid #ffffff20;border-radius:11px;padding:11px 13px;cursor:pointer;transition:.2s}
-    button:hover{border-color:var(--cyan);box-shadow:0 0 14px #4df6ff2b;transform:translateY(-1px)}
+    button:hover{border-color:var(--cyan);box-shadow:0 0 14px #4df6ff55,0 0 28px #9d6bff22;transform:translateY(-2px)}
+    button:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
     .primary{flex:1;background:linear-gradient(100deg,#4df6ff1b,#9d6bff25);border-color:#9d6bff75}
     .rules{font-size:12px;line-height:1.65;color:var(--muted);margin:10px 0 0;padding-left:17px}.rules li+li{margin-top:5px}
     .mode-pill{display:inline-block;margin-top:13px;border:1px solid #4df6ff47;color:#93faff;background:#4df6ff0c;border-radius:99px;padding:6px 10px;font:600 9px Orbitron,sans-serif;letter-spacing:.08em}
-    footer{text-align:center;color:#747b9e;font-size:11px;margin:18px 0 0}
-    @keyframes rgb{0%{background-position:0 50%;filter:hue-rotate(0)}50%{background-position:100% 50%;filter:hue-rotate(40deg)}100%{background-position:0 50%;filter:hue-rotate(0)}}
-    @keyframes rgbGlow{0%,100%{box-shadow:0 0 16px #4df6ff70,0 0 38px #9d6bff4d,0 0 65px #ff4fd82e}50%{box-shadow:0 0 24px #ff4fd880,0 0 52px #4df6ff66,0 0 82px #9d6bff4d}}
+    footer{text-align:center;color:#a6abc9;font-size:11px;margin:24px 0 0;padding-top:20px;border-top:1px solid #ffffff12}
+    footer .footer-persian{display:block;margin:7px auto 0;font:700 clamp(21px,4vw,29px) 'Aref Ruqaa Ink','Vazirmatn',serif;direction:rtl;color:#fff0bd;text-shadow:0 0 7px #ffcb62,0 0 18px #ff9e4d,0 0 30px #ff4fd866;animation:gold-pulse 3s ease-in-out infinite}
+    @keyframes rgb{0%{background-position:0 50%;filter:hue-rotate(0)}50%{background-position:100% 50%;filter:hue-rotate(35deg)}100%{background-position:0 50%;filter:hue-rotate(0)}}
+    @keyframes rgb-glow{0%,100%{box-shadow:0 0 20px #4df6ff70,0 0 40px #9d6bff4d,0 0 66px #ff4fd82e}50%{box-shadow:0 0 26px #ff4fd880,0 0 54px #4df6ff66,0 0 88px #9d6bff55}}
+    @keyframes neon-flow{to{background-position:250% center}}
+    @keyframes neon-flicker{0%,92%,96%,100%{opacity:1}94%{opacity:.82}}
+    @keyframes gold-pulse{0%,100%{filter:drop-shadow(0 0 4px #ffb84d)}50%{filter:drop-shadow(0 0 12px #ff8a4d) drop-shadow(0 0 22px #ff4fd866)}}
     @keyframes pulse{to{stroke-width:5;opacity:.65}}
+    @keyframes node-pulse{to{filter:drop-shadow(0 0 14px currentColor);transform:scale(1.08)}}
+    @keyframes piece-pop{from{transform:scale(.25);opacity:.2}to{transform:scale(1);opacity:1}}
+    @keyframes shine{0%,35%{transform:translateX(-100%)}75%,100%{transform:translateX(100%)}}
+    @keyframes aurora{to{transform:translate(-50%,-50%) rotate(360deg)}}
+    @keyframes fade-up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
     @media(max-width:760px){.wrap{padding:22px 13px 32px}.layout{grid-template-columns:1fr}.side{display:grid;grid-template-columns:1fr 1fr}.status-card{grid-column:1/-1}.board-card{padding:12px}.side-card{padding:16px}}
-    @media(max-width:440px){.side{grid-template-columns:1fr}.status-card{grid-column:auto}.board-card{padding:8px}.wrap{padding-left:9px;padding-right:9px}.rules{font-size:11px}}
+    @media(max-width:440px){.side{grid-template-columns:1fr}.status-card{grid-column:auto}.board-card{padding:8px}.wrap{padding-left:9px;padding-right:9px}.rules{font-size:11px}.odds-card{padding:15px}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition:none!important}}
   </style>
 </head>
@@ -76,7 +94,15 @@
       <p class="subtitle">Build your mills. Move without limits. Own the board.</p>
     </header>
     <section class="layout" aria-label="Nine Men's Morris game">
-      <div class="board-card"><div class="board-shell"><div class="board-inner"><svg id="board" viewBox="0 0 300 300" role="group" aria-label="Game board"></svg></div></div></div>
+      <div class="board-column">
+        <div class="board-card"><div class="board-shell"><div class="board-inner"><svg id="board" viewBox="0 0 300 300" role="group" aria-label="Game board"></svg></div></div></div>
+        <section class="odds-card" aria-live="polite" aria-label="Estimated winning chances">
+          <div class="odds-heading"><span>Winning chances</span><span>LIVE ESTIMATE</span></div>
+          <div class="odds-values"><span id="blue-odds" class="blue-text">50% BLUE</span><span id="pink-odds" class="pink-text">50% PINK</span></div>
+          <div class="odds-track" role="img" aria-label="Estimated chance bar"><div id="odds-blue-bar" class="odds-blue"></div></div>
+          <p class="odds-note">A playful estimate based on pieces, mills, and threats—not a prediction or a change to the rules.</p>
+        </section>
+      </div>
       <aside class="side">
         <section class="side-card status-card" aria-live="polite">
           <div class="status-label">Game status</div>
@@ -91,12 +117,6 @@
             <div class="score"><span class="blue-text">BLUE</span><strong id="blue-count" class="blue-text">9</strong><span>to place / on board</span></div>
             <div class="score"><span class="pink-text">PINK</span><strong id="pink-count" class="pink-text">9</strong><span>to place / on board</span></div>
           </div>
-          <div class="odds" aria-live="polite" aria-label="Estimated winning chances">
-            <div class="odds-heading"><span>Winning chances</span><span>EST.</span></div>
-            <div class="odds-values"><span id="blue-odds" class="blue-text">50% BLUE</span><span id="pink-odds" class="pink-text">50% PINK</span></div>
-            <div class="odds-track" role="img" aria-label="Estimated chance bar"><div id="odds-blue-bar" class="odds-blue"></div></div>
-            <p class="odds-note">A playful estimate from pieces, mills, and threats—not a prediction or rule change.</p>
-          </div>
           <div class="controls"><button class="primary" id="restart">↻ &nbsp;NEW GAME</button><button id="sound" aria-pressed="false" title="Toggle sound effects">♫</button></div>
         </section>
         <section class="side-card">
@@ -110,7 +130,7 @@
         </section>
       </aside>
     </section>
-    <footer>Made for bold moves · Persian title: دوزِ نه‌مرد</footer>
+    <footer>Made for bold moves · Persian title: دوزِ نه‌مرد<span class="footer-persian" lang="fa" dir="rtl">این بازی برای لالای عزیز تی بزرگ ساخته شده</span></footer>
   </main>
 <script>
 (() => {
@@ -145,10 +165,10 @@
     });
     render();
   }
-  function isMill(index, color) { return mills.some(m => m.includes(index) && m.every(i => board[i]===color)); }
-  function pieceCount(color) { return board.filter(p=>p===color).length; }
+  function isMill(index,color){return mills.some(m=>m.includes(index)&&m.every(i=>board[i]===color))}
+  function pieceCount(color){return board.filter(p=>p===color).length}
   function other(color){return color==='blue'?'pink':'blue'}
-  function estimateWinChance(color) {
+  function estimateWinChance(color){
     const opponent=other(color);
     const completedMills=c=>mills.filter(m=>m.every(i=>board[i]===c)).length;
     const openThreats=c=>mills.filter(m=>m.filter(i=>board[i]===c).length===2&&m.some(i=>board[i]===null)).length;
@@ -156,24 +176,24 @@
     const advantage=value(color)-value(opponent);
     return Math.max(5,Math.min(95,Math.round(100/(1+Math.exp(-advantage/2.8)))));
   }
-  function onPoint(i) {
-    if(winner) return;
-    if(captureFor) {
-      if(board[i]===captureFor) { board[i]=null; captureFor=null; playTone(420); if(pieceCount(turn)<3) winner=turn; else turn=other(turn); selected=null; render(); }
+  function onPoint(i){
+    if(winner)return;
+    if(captureFor){
+      if(board[i]===captureFor){board[i]=null;captureFor=null;playTone(420);if(pieceCount(turn)<3)winner=turn;else turn=other(turn);selected=null;render()}
       return;
     }
-    if(placed.blue<9 || placed.pink<9) {
-      if(board[i]!==null) return;
-      board[i]=turn; placed[turn]++; playTone(520);
-      if(isMill(i,turn)) captureFor=other(turn); else turn=other(turn);
-      render(); return;
+    if(placed.blue<9||placed.pink<9){
+      if(board[i]!==null)return;
+      board[i]=turn;placed[turn]++;playTone(520);
+      if(isMill(i,turn))captureFor=other(turn);else turn=other(turn);
+      render();return;
     }
-    if(selected===null) { if(board[i]===turn){selected=i;render()} return; }
+    if(selected===null){if(board[i]===turn){selected=i;render()}return}
     if(selected===i){selected=null;render();return}
     if(board[i]===turn){selected=i;render();return}
-    if(board[i]!==null) return;
-    board[i]=turn; board[selected]=null; selected=null; playTone(620);
-    if(isMill(i,turn)) captureFor=other(turn); else turn=other(turn);
+    if(board[i]!==null)return;
+    board[i]=turn;board[selected]=null;selected=null;playTone(620);
+    if(isMill(i,turn))captureFor=other(turn);else turn=other(turn);
     render();
   }
   function render(){
@@ -189,14 +209,14 @@
     colors.forEach(c=>{countEls[c].textContent=String(9-placed[c]+pieceCount(c))});
     const blueChance=winner?(winner==='blue'?100:0):estimateWinChance('blue');
     const pinkChance=100-blueChance;
-    oddsEls.blue.textContent=`${blueChance}% BLUE`; oddsEls.pink.textContent=`${pinkChance}% PINK`;
+    oddsEls.blue.textContent=`${blueChance}% BLUE`;oddsEls.pink.textContent=`${pinkChance}% PINK`;
     oddsBlueBar.style.width=`${blueChance}%`;
     oddsBlueBar.parentElement.setAttribute('aria-label',`Estimated chances: Blue ${blueChance} percent, Pink ${pinkChance} percent`);
-    turnDot.className=`dot ${turn}`; turnName.textContent=`${turn.toUpperCase()} PLAYER`;
+    turnDot.className=`dot ${turn}`;turnName.textContent=`${turn.toUpperCase()} PLAYER`;
     if(winner){statusEl.textContent=`${winner.toUpperCase()} WINS!`;hintEl.textContent='A brilliant game. Start a new game to play again.';turnName.textContent='GAME OVER';return}
     if(captureFor){statusEl.textContent='Mill made! Capture a pawn';hintEl.textContent=`Choose any glowing ${captureFor} pawn to remove it.`;turnName.textContent=`${turn.toUpperCase()} PLAYER`;return}
     if(!allPlaced){statusEl.textContent=`${turn==='blue'?'Blue':'Pink'}'s turn to place a pawn`;hintEl.textContent=`Choose any empty point. ${9-placed[turn]} pawn${9-placed[turn]===1?'':'s'} left to place.`}
-    else {statusEl.textContent=`${turn==='blue'?'Blue':'Pink'}'s turn to move`;hintEl.textContent=selected===null?'Select one of your pawns, then choose any empty point.':`Pawn selected. Move it to any open point—or tap it again to deselect.`}
+    else{statusEl.textContent=`${turn==='blue'?'Blue':'Pink'}'s turn to move`;hintEl.textContent=selected===null?'Select one of your pawns, then choose any empty point.':'Pawn selected. Move it to an empty point—or tap it again to deselect.'}
   }
   function playTone(freq){if(!soundOn)return;try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();const osc=audio.createOscillator(),gain=audio.createGain();osc.frequency.value=freq;osc.type='sine';gain.gain.setValueAtTime(.035,audio.currentTime);gain.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.12);osc.connect(gain);gain.connect(audio.destination);osc.start();osc.stop(audio.currentTime+.12)}catch(_){}}
   document.getElementById('restart').addEventListener('click',init);
